@@ -22,6 +22,9 @@ radioState = False
 display_width = 800
 display_height = 600
 
+#number of time to divide to screen for spacing
+numDivisions = 3
+
 imageWidth = display_width / 9  # size of icon images X
 imageHeight = imageWidth  # size of icon images Y
 
@@ -40,7 +43,7 @@ image_3_Start = image_2_Start + spacer
 image_4_Start = image_3_Start + spacer
 image_5_Start = image_4_Start + spacer
 
-image_Y_Start = (display_height/2)-(imageHeight/2)
+image_Y_Start = ((display_height/numDivisions)*(numDivisions-1))-(imageHeight/2)
 image_Y_Start = int(image_Y_Start)
 
 userDisplay = pygame.display.set_mode((display_width, display_height))
@@ -267,13 +270,14 @@ def clockFunction():
 
     now = datetime.now()
 
+
     # draw digital clock
     digital_text = now.strftime('%I:%M:%S')
     text = digital_font.render(digital_text, True, WHITE)
 
     # CLOCK POSITION
     fontX = int(W / 2 - digital_font.size(digital_text)[0] / 2)
-    fontY = int((H/4) - digital_font.size(digital_text)[1] / 2)
+    fontY = int((H/numDivisions) - digital_font.size(digital_text)[1] / 2)
     pygame.draw.rect(userDisplay, BLACK,
                      (fontX, fontY, digital_font.size(digital_text)[0], digital_font.size(digital_text)[1]), 0)
     userDisplay.blit(text, [fontX, fontY])
